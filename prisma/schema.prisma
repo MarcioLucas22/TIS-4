@@ -10,39 +10,45 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String @id @default(uuid())
-  cpf       String @unique
-  password  String
+model Paciente {
+  id            Int            @id @default(autoincrement())
+  cpf           String         @unique
+  password      String
+  dadosPessoais DadosPessoais?
 
-  @@map("users")
+  @@map("pacientes")
 }
 
-model UserMedico {
-  id        String @id @default(uuid())
-  cpf       String @unique
-  password  String
+model Medico {
+  id       Int    @id @default(autoincrement())
+  cpf      String @unique
+  crm      String @unique
+  email    String @unique
+  password String
 
-  @@map("users_medico")
+  @@map("medicos")
 }
 
 model DadosPessoais {
-  id String @id @default(uuid())
-  nome String
-  conhecidoComo String
+  id              Int     @id @default(autoincrement())
+  nome            String
+  conhecidoComo   String
   nomeCompanheiro String
-  dataNascimento String
-  idade Int
-  raca String
-  trabalhaEmCasa String
-  ocupacao String
-  cep String
-  endereco String
-  cidade String
-  estado String
-  telefoneFixo String
+  dataNascimento  String
+  idade           Int
+  raca            String
+  trabalhaEmCasa  Boolean
+  ocupacao        String
+  cep             String
+  endereco        String
+  cidade          String
+  estado          String
+  telefoneFixo    String
   telefoneCelular String
-  email String
+  email           String
 
-  @@map("dados_pessoais")
+  paciente      Paciente @relation(fields: [fk_idPaciente], references: [id])
+  fk_idPaciente Int      @unique
+
+  @@map("dadosPessoais")
 }
