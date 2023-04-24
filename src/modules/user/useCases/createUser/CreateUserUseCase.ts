@@ -9,7 +9,7 @@ interface ICreateUser {
 export class CreateUserUseCase {
   async execute({ cpf, password }: ICreateUser) {
 
-    const userExists = await prisma.user.findUnique({
+    const userExists = await prisma.paciente.findUnique({
       where: {
         cpf: cpf
       }
@@ -21,7 +21,7 @@ export class CreateUserUseCase {
 
     const hashPassword = await hash(password, 10)
 
-    const user = await prisma.user.create({
+    const user = await prisma.paciente.create({
       data: {
         cpf,
         password: hashPassword

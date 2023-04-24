@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,7 +8,7 @@ datasource db {
 }
 
 model Paciente {
-  id            Int            @id @default(autoincrement())
+  id            String         @id @default(uuid())
   cpf           String         @unique
   password      String
   dadosPessoais DadosPessoais?
@@ -20,7 +17,7 @@ model Paciente {
 }
 
 model Medico {
-  id       Int    @id @default(autoincrement())
+  id       String @id @default(uuid())
   cpf      String @unique
   crm      String @unique
   email    String @unique
@@ -30,7 +27,7 @@ model Medico {
 }
 
 model DadosPessoais {
-  id              Int     @id @default(autoincrement())
+  id              String  @id @default(uuid())
   nome            String
   conhecidoComo   String
   nomeCompanheiro String
@@ -48,7 +45,7 @@ model DadosPessoais {
   email           String
 
   paciente      Paciente @relation(fields: [fk_idPaciente], references: [id])
-  fk_idPaciente Int      @unique
+  fk_idPaciente String   @unique
 
   @@map("dadosPessoais")
 }

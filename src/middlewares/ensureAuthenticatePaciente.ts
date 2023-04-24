@@ -5,7 +5,7 @@ interface IPayload {
   sub: string
 }
 
-export async function ensureAuthenticateUser(req: Request, res: Response, next: NextFunction) {
+export async function ensureAuthenticatePaciente(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization
 
   if(!authHeader) {
@@ -19,7 +19,7 @@ export async function ensureAuthenticateUser(req: Request, res: Response, next: 
   try {
     const { sub } = verify(token, "6de1c4c6ae4a49e7590d3bd4449d41d6") as IPayload
 
-    req.id_user = sub
+    req.id_paciente = sub
 
     return next()
   } catch(erro) {

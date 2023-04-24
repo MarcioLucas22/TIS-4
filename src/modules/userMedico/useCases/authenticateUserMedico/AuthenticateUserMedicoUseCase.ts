@@ -1,16 +1,15 @@
 import { compare } from "bcrypt"
 import { prisma } from "../../../../database/prismaClient"
-import { sign } from 'jsonwebtoken'
+import { sign } from "jsonwebtoken"
 
-interface IAuthenticateUserPaciente {
+interface IAuthenticateUserMedico {
   cpf: string
   password: string
 }
 
-export class AuthenticateUserUseCase {
-  async execute({ cpf, password }: IAuthenticateUserPaciente) {
-
-    const user = await prisma.paciente.findFirst({
+export class AuthenticateUserMedicoUseCase {
+  async execute({ cpf, password }: IAuthenticateUserMedico) {
+    const user = await prisma.medico.findFirst({
       where: {
         cpf: cpf
       }
