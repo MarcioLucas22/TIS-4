@@ -19,6 +19,7 @@ export class RegisterPersonalDataController {
       telefoneFixo,
       telefoneCelular,
       email } = req.body
+      const { id_paciente } = req
 
       const registerPersonalDataUseCase = new RegisterPersonalDataUseCase()
 
@@ -37,7 +38,8 @@ export class RegisterPersonalDataController {
         estado,
         telefoneFixo,
         telefoneCelular,
-        email
+        email,
+        id: id_paciente,
       })
 
       return res.status(201).send(result)

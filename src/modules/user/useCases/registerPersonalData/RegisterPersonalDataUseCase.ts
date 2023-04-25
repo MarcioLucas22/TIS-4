@@ -1,6 +1,8 @@
+import { Paciente } from "@prisma/client"
 import { prisma } from "../../../../database/prismaClient"
 
 interface DatasUser {
+  id: string
   nome: string
   conhecidoComo: string
   nomeCompanheiro: string
@@ -16,12 +18,18 @@ interface DatasUser {
   telefoneFixo: string
   telefoneCelular: string
   email: string
+  paciente: Paciente
 }
 
 export class RegisterPersonalDataUseCase {
   async execute(datas :DatasUser) {
     const personalDatas = await prisma.dadosPessoais.create({
       data: {
+        paciente: {
+          connect: {
+            id: datas.id, 
+          },
+        },
         nome: datas.nome,
         conhecidoComo: datas.conhecidoComo,
         nomeCompanheiro: datas.nomeCompanheiro,
